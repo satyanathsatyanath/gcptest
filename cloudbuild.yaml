@@ -7,6 +7,7 @@ steps:
         echo "Repository: $REPO_NAME"
         echo "Branch: $BRANCH_NAME"
         echo "Commit SHA: $COMMIT_SHA"
-options:
-  # logging: CLOUD_LOGGING_ONLY
-  logging: None
+# options:
+#   # logging: CLOUD_LOGGING_ONLY
+#   logging: None
+logsbucket: 'gs://gcp-devops-bucket-2'
