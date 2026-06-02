@@ -1,0 +1,11 @@
+steps:
+  - name: 'alphine'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        echo "Repository: $REPO_NAME"
+        echo "Branch: $BRANCH_NAME"
+        echo "Commit SHA: $COMMIT_SHA"
+options:
+  logging: CLOUD_LOGGING_ONLY
