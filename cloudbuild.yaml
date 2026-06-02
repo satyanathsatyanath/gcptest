@@ -10,4 +10,4 @@ steps:
 # options:
 #   # logging: CLOUD_LOGGING_ONLY
 #   logging: None
-logsbucket: 'gs://gcp-devops-bucket-2'
+logsBucket: 'gs://gcp-devops-bucket-2'
