@@ -8,4 +8,5 @@ steps:
         echo "Branch: $BRANCH_NAME"
         echo "Commit SHA: $COMMIT_SHA"
 options:
-  logging: CLOUD_LOGGING_ONLY
+  # logging: CLOUD_LOGGING_ONLY
+  logging: None
