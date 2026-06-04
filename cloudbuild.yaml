@@ -11,3 +11,4 @@ options:
   logging: CLOUD_LOGGING_ONLY
   #logging: None
 # logsBucket: 'gs://gcp-devops-bucket-2'
+timeout: '10s'
