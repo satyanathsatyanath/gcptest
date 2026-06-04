@@ -1,9 +1,9 @@
 steps:
-  - name: gcp.io/cloud-builders/docker
+  - name: gcr.io/cloud-builders/docker
     args: ['build', '-t', 'asia-south1-docker.pkg.dev/satyanewproject-498206/python-aap-image/hello-app:v1', '.']
 
 #push the image to artifact registry
-  - name: gcp.io/cloud-builders/docker
+  - name: gcr.io/cloud-builders/docker
     args: ['push', 'asia-south1-docker.pkg.dev/satyanewproject-498206/python-aap-image/hello-app:v1']
 
 images:
