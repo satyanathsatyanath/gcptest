@@ -10,4 +10,4 @@ images:
  - 'asia-south1-docker.pkg.dev/satyanewproject-498206/python-aap-image/hello-app:v1'
 
 options:
- logging: CLOUD_LOGGING_ONLY
+  logging: CLOUD_LOGGING_ONLY
