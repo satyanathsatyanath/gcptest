@@ -20,10 +20,14 @@ steps:
     args:
       - '-c'
       - |
-        echo "===Custom-in Variable==="
-        echo "Environment: $_ENV"
-        echo "Service Name: $_SERVICE_NAME"
-        echo "Region: $_REGION"      
+        echo "===Custom-in Variable===" >> output/info.txt
+        echo "Environment: $_ENV"?? >> output/info.txt  
+        echo "Service Name: $_SERVICE_NAME" >> output/info.txt
+        echo "Region: $_REGION" >> output/info.txt      
+artifacts:
+  objects:
+    location: 'gs://gcp-devops-bucket-2/artifacts/'
+    paths: ['output/**']        
 
 options:
   logging: CLOUD_LOGGING_ONLY        
