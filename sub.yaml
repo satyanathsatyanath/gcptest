@@ -1,0 +1,29 @@
+substitutions:
+  _ENV: 'production'  
+  _SERVICE_NAME: 'my-service'
+  _REGION: 'us-central1'
+
+steps:
+  - name : 'ubuntu'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "===Built-in Variable==="
+        echo "Project ID: $PROJECT_ID"
+        echo "Repository Name: $REPO_NAME"
+        echo "Branch Name: $BRANCH_NAME"
+        echo "Trigger Name: $TRIGGER_NAME"
+        echo "Commit SHA: $COMMIT_SHA"
+  - name : 'ubuntu'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "===Custom-in Variable==="
+        echo "Environment: $_ENV"
+        echo "Service Name: $_SERVICE_NAME"
+        echo "Region: $_REGION"      
+
+options:
+  logging: CLOUD_LOGGING_ONLY        
