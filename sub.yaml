@@ -20,6 +20,7 @@ steps:
     args:
       - '-c'
       - |
+        mkdir -p output
         echo "===Custom-in Variable===" >> output/info.txt
         echo "Environment: $_ENV"?? >> output/info.txt  
         echo "Service Name: $_SERVICE_NAME" >> output/info.txt
