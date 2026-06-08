@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    autopilot.gke.io/resource-adjustment: '{"input":{"containers":[{"name":"hello-app-sha256-1"}]},"output":{"containers":[{"limits":{"ephemeral-storage":"1Gi"},"requests":{"cpu":"500m","ephemeral-storage":"1Gi","memory":"2Gi"},"name":"hello-app-sha256-1"}]},"computeClassAtAdmission":"autopilot","modified":true}'
+    autopilot.gke.io/warden-version: 35.26.4-gke.2
+    deployment.kubernetes.io/revision: '1'
+  creationTimestamp: '2026-06-08T12:27:06Z'
+  generation: 2
+  labels:
+    app: deployment-1
+    app.kubernetes.io/managed-by: cloud-console
+  name: deployment-1
+  namespace: default
+  resourceVersion: '1780922182353983012'
+  uid: 25e22fe7-60cf-4be2-9979-ee3ba11b5839
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: deployment-1
+      app.kubernetes.io/managed-by: cloud-console
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: deployment-1
+        app.kubernetes.io/managed-by: cloud-console
+    spec:
+      containers:
+      - image: asia-south1-docker.pkg.dev/satyanewproject-498206/python-aap-image/hello-app@sha256:c311722073a71d45909545fe8f75eea6f4d47ad5091fdf5940ea37430723ac77
+        imagePullPolicy: IfNotPresent
+        name: hello-app-sha256-1
+        resources:
+          limits:
+            ephemeral-storage: 1Gi
+          requests:
+            cpu: 500m
+            ephemeral-storage: 1Gi
+            memory: 2Gi
+        securityContext:
+          capabilities:
+            drop:
+            - NET_RAW
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      nodeSelector:
+        cloud.google.com/compute-class: autopilot
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: '2026-06-08T12:29:56Z'
+    lastUpdateTime: '2026-06-08T12:29:56Z'
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: 'True'
+    type: Available
+  - lastTransitionTime: '2026-06-08T12:27:06Z'
+    lastUpdateTime: '2026-06-08T12:29:56Z'
+    message: ReplicaSet "deployment-1-7d7f5b8bd" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: 'True'
+    type: Progressing
+  observedGeneration: 2
+  readyReplicas: 1
+  replicas: 1
+  terminatingReplicas: 0
+  updatedReplicas: 1
