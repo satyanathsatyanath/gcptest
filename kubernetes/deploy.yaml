@@ -2,22 +2,102 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    autopilot.gke.io/resource-adjustment: '{"input":{"containers":[{"name":"hello-app-sha256-1"}]},"output":{"containers":[{"limits":{"ephemeral-storage":"1Gi"},"requests":{"cpu":"500m","ephemeral-storage":"1Gi","memory":"2Gi"},"name":"hello-app-sha256-1"}]},"computeClassAtAdmission":"autopilot","modified":true}'
+    autopilot.gke.io/resource-adjustment: >-
+      {"input":{"containers":[{"name":"gcptest-sha256-1"}]},"output":{"containers":[{"limits":{"ephemeral-storage":"1Gi"},"requests":{"cpu":"500m","ephemeral-storage":"1Gi","memory":"2Gi"},"name":"gcptest-sha256-1"}]},"computeClassAtAdmission":"autopilot","modified":true}
     autopilot.gke.io/warden-version: 35.26.4-gke.2
-    deployment.kubernetes.io/revision: '1'
-  creationTimestamp: '2026-06-08T12:27:06Z'
-  generation: 2
   labels:
     app: deployment-1
-    app.kubernetes.io/managed-by: cloud-console
+  managedFields:
+    - apiVersion: apps/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:spec:
+          f:replicas: {}
+      manager: vpa-recommender
+      operation: Update
+      subresource: scale
+    - apiVersion: apps/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app: {}
+            f:app.kubernetes.io/managed-by: {}
+        f:spec:
+          f:progressDeadlineSeconds: {}
+          f:revisionHistoryLimit: {}
+          f:selector: {}
+          f:strategy:
+            f:rollingUpdate:
+              .: {}
+              f:maxSurge: {}
+              f:maxUnavailable: {}
+            f:type: {}
+          f:template:
+            f:metadata:
+              f:labels:
+                .: {}
+                f:app: {}
+                f:app.kubernetes.io/managed-by: {}
+            f:spec:
+              f:containers:
+                k:{"name":"gcptest-sha256-1"}:
+                  .: {}
+                  f:image: {}
+                  f:imagePullPolicy: {}
+                  f:name: {}
+                  f:resources: {}
+                  f:terminationMessagePath: {}
+                  f:terminationMessagePolicy: {}
+              f:dnsPolicy: {}
+              f:nodeSelector: {}
+              f:restartPolicy: {}
+              f:schedulerName: {}
+              f:securityContext: {}
+              f:terminationGracePeriodSeconds: {}
+      manager: unknown
+      operation: Update
+      time: '2026-06-09T09:40:26Z'
+    - apiVersion: apps/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            f:deployment.kubernetes.io/revision: {}
+        f:status:
+          f:availableReplicas: {}
+          f:conditions:
+            .: {}
+            k:{"type":"Available"}:
+              .: {}
+              f:lastTransitionTime: {}
+              f:lastUpdateTime: {}
+              f:message: {}
+              f:reason: {}
+              f:status: {}
+              f:type: {}
+            k:{"type":"Progressing"}:
+              .: {}
+              f:lastTransitionTime: {}
+              f:lastUpdateTime: {}
+              f:message: {}
+              f:reason: {}
+              f:status: {}
+              f:type: {}
+          f:observedGeneration: {}
+          f:readyReplicas: {}
+          f:replicas: {}
+          f:terminatingReplicas: {}
+          f:updatedReplicas: {}
+      manager: kube-controller-manager
+      operation: Update
+      subresource: status
+      time: '2026-06-09T09:47:57Z'
   name: deployment-1
   namespace: default
-  resourceVersion: '1780922182353983012'
-  uid: 25e22fe7-60cf-4be2-9979-ee3ba11b5839
 spec:
-  progressDeadlineSeconds: 600
   replicas: 1
-  revisionHistoryLimit: 10
   selector:
     matchLabels:
       app: deployment-1
@@ -31,51 +111,178 @@ spec:
     metadata:
       labels:
         app: deployment-1
-        app.kubernetes.io/managed-by: cloud-console
     spec:
       containers:
-      - image: asia-south1-docker.pkg.dev/satyanewproject-498206/python-aap-image/hello-app@sha256:c311722073a71d45909545fe8f75eea6f4d47ad5091fdf5940ea37430723ac77
-        imagePullPolicy: IfNotPresent
-        name: hello-app-sha256-1
-        resources:
-          limits:
-            ephemeral-storage: 1Gi
-          requests:
-            cpu: 500m
-            ephemeral-storage: 1Gi
-            memory: 2Gi
-        securityContext:
-          capabilities:
-            drop:
-            - NET_RAW
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-      dnsPolicy: ClusterFirst
+        - image: gcr.io/satyanewproject-498206/github.com/satyanathsatyanath/gcptest
+          imagePullPolicy: IfNotPresent
+          name: gcptest-sha256-1
+          resources:
+            limits:
+              ephemeral-storage: 1Gi
+            requests:
+              cpu: 500m
+              ephemeral-storage: 1Gi
+              memory: 2Gi
+          securityContext:
+            capabilities:
+              drop:
+                - NET_RAW
       nodeSelector:
         cloud.google.com/compute-class: autopilot
-      restartPolicy: Always
-      schedulerName: default-scheduler
       securityContext:
         seccompProfile:
           type: RuntimeDefault
-      terminationGracePeriodSeconds: 30
-status:
-  availableReplicas: 1
-  conditions:
-  - lastTransitionTime: '2026-06-08T12:29:56Z'
-    lastUpdateTime: '2026-06-08T12:29:56Z'
-    message: Deployment has minimum availability.
-    reason: MinimumReplicasAvailable
-    status: 'True'
-    type: Available
-  - lastTransitionTime: '2026-06-08T12:27:06Z'
-    lastUpdateTime: '2026-06-08T12:29:56Z'
-    message: ReplicaSet "deployment-1-7d7f5b8bd" has successfully progressed.
-    reason: NewReplicaSetAvailable
-    status: 'True'
-    type: Progressing
-  observedGeneration: 2
-  readyReplicas: 1
-  replicas: 1
-  terminatingReplicas: 0
-  updatedReplicas: 1
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  labels:
+    app: deployment-1
+  managedFields:
+    - apiVersion: autoscaling/v2
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app: {}
+            f:app.kubernetes.io/managed-by: {}
+        f:spec:
+          f:maxReplicas: {}
+          f:metrics: {}
+          f:minReplicas: {}
+          f:scaleTargetRef:
+            f:apiVersion: {}
+            f:kind: {}
+            f:name: {}
+      manager: unknown
+      operation: Update
+      time: '2026-06-09T09:40:26Z'
+    - apiVersion: autoscaling/v2
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:conditions:
+            .: {}
+            k:{"type":"AbleToScale"}:
+              .: {}
+              f:lastTransitionTime: {}
+              f:message: {}
+              f:reason: {}
+              f:status: {}
+              f:type: {}
+            k:{"type":"ScalingActive"}:
+              .: {}
+              f:lastTransitionTime: {}
+              f:message: {}
+              f:reason: {}
+              f:status: {}
+              f:type: {}
+            k:{"type":"ScalingLimited"}:
+              .: {}
+              f:lastTransitionTime: {}
+              f:message: {}
+              f:reason: {}
+              f:status: {}
+              f:type: {}
+          f:currentMetrics: {}
+          f:currentReplicas: {}
+          f:desiredReplicas: {}
+          f:lastScaleTime: {}
+      manager: vpa-recommender
+      operation: Update
+      subresource: status
+      time: '2026-06-09T09:47:41Z'
+  name: deployment-1-hpa-yv9s
+  namespace: default
+spec:
+  maxReplicas: 5
+  metrics:
+    - resource:
+        name: cpu
+        target:
+          averageUtilization: 80
+          type: Utilization
+      type: Resource
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: deployment-1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    cloud.google.com/neg: '{"ingress":true}'
+    networking.gke.io/target-pool: ad87a05aa79544423a9ba123b6a41515
+  finalizers:
+    - gke.networking.io/l4-netlb-v1
+    - service.kubernetes.io/load-balancer-cleanup
+  labels:
+    app: deployment-1
+  managedFields:
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app: {}
+            f:app.kubernetes.io/managed-by: {}
+        f:spec:
+          f:allocateLoadBalancerNodePorts: {}
+          f:externalTrafficPolicy: {}
+          f:internalTrafficPolicy: {}
+          f:ports:
+            .: {}
+            k:{"port":8000,"protocol":"TCP"}:
+              .: {}
+              f:port: {}
+              f:protocol: {}
+              f:targetPort: {}
+          f:selector: {}
+          f:sessionAffinity: {}
+          f:type: {}
+      manager: unknown
+      operation: Update
+      time: '2026-06-09T09:51:36Z'
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            f:networking.gke.io/target-pool: {}
+          f:finalizers:
+            .: {}
+            v:"gke.networking.io/l4-netlb-v1": {}
+            v:"service.kubernetes.io/load-balancer-cleanup": {}
+        f:status:
+          f:loadBalancer:
+            f:ingress: {}
+      manager: cloud-controller-manager
+      operation: Update
+      subresource: status
+      time: '2026-06-09T09:52:26Z'
+  name: deployment-1-service
+  namespace: default
+spec:
+  allocateLoadBalancerNodePorts: true
+  clusterIP: 34.118.225.20
+  clusterIPs:
+    - 34.118.225.20
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+    - nodePort: 31973
+      port: 8000
+      protocol: TCP
+      targetPort: 8000
+  selector:
+    app: deployment-1
+    app.kubernetes.io/managed-by: cloud-console
+  sessionAffinity: None
+  type: LoadBalancer
