@@ -2,18 +2,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    autopilot.gke.io/resource-adjustment: '{"input":{"containers":[{"name":"gcptest-sha256-1"}]},"output":{"containers":[{"limits":{"ephemeral-storage":"1Gi"},"requests":{"cpu":"500m","ephemeral-storage":"1Gi","memory":"2Gi"},"name":"gcptest-sha256-1"}]},"computeClassAtAdmission":"autopilot","modified":true}'
+    autopilot.gke.io/resource-adjustment: '{"input":{"containers":[{"name":"gcptest-sha256-1"}]},"output":{"containers":[{"limits":{"ephemeral-storage":"1Gi"},"requests":{"cpu":"500m","ephemeral-storage":"1Gi","memory":"2Gi"},"name":"gcptest-sha256-1"}]},"computeClassAtAdmission":"Default","modified":true}'
     autopilot.gke.io/warden-version: 35.26.4-gke.2
-    deployment.kubernetes.io/revision: '1'
-  creationTimestamp: '2026-06-09T09:40:26Z'
-  generation: 2
+    deployment.kubernetes.io/revision: '2'
+  creationTimestamp: '2026-06-10T07:06:42Z'
+  generation: 4
   labels:
     app: deployment-1
     app.kubernetes.io/managed-by: cloud-console
   name: deployment-1
   namespace: default
-  resourceVersion: '1780998477097951012'
-  uid: bfdbacc2-bcf0-4aba-945f-8da7f467af4a
+  resourceVersion: '1781078121891007012'
+  uid: 912a98a9-fe4d-4870-97e7-2a50239d8216
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
@@ -34,7 +34,7 @@ spec:
         app.kubernetes.io/managed-by: cloud-console
     spec:
       containers:
-      - image: gcr.io/satyanewproject-498206/github.com/satyanathsatyanath/gcptest@sha256:97c2ecf4cd08e287c7f33947ccaf6841a96ffde15244904eb1bae9dc00eaf93e
+      - image: gcr.io/satyanewproject-498206/github.com/satyanathsatyanath/gcptest@sha256:a041dcdcdb172e6ef76f1fcd9fecef709b6372ba4fb0dd1105f3b7026eb689ca
         imagePullPolicy: IfNotPresent
         name: gcptest-sha256-1
         resources:
@@ -51,30 +51,33 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
-      nodeSelector:
-        cloud.google.com/compute-class: autopilot
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext:
         seccompProfile:
           type: RuntimeDefault
       terminationGracePeriodSeconds: 30
+      tolerations:
+      - effect: NoSchedule
+        key: kubernetes.io/arch
+        operator: Equal
+        value: amd64
 status:
   availableReplicas: 1
   conditions:
-  - lastTransitionTime: '2026-06-09T09:41:57Z'
-    lastUpdateTime: '2026-06-09T09:41:57Z'
+  - lastTransitionTime: '2026-06-10T07:06:42Z'
+    lastUpdateTime: '2026-06-10T07:50:43Z'
+    message: ReplicaSet "deployment-1-54bb8cbf5" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: 'True'
+    type: Progressing
+  - lastTransitionTime: '2026-06-10T07:54:56Z'
+    lastUpdateTime: '2026-06-10T07:54:56Z'
     message: Deployment has minimum availability.
     reason: MinimumReplicasAvailable
     status: 'True'
     type: Available
-  - lastTransitionTime: '2026-06-09T09:40:26Z'
-    lastUpdateTime: '2026-06-09T09:41:57Z'
-    message: ReplicaSet "deployment-1-65f7f96467" has successfully progressed.
-    reason: NewReplicaSetAvailable
-    status: 'True'
-    type: Progressing
-  observedGeneration: 2
+  observedGeneration: 4
   readyReplicas: 1
   replicas: 1
   terminatingReplicas: 0
