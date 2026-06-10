@@ -4,19 +4,19 @@ metadata:
   annotations:
     autopilot.gke.io/resource-adjustment: '{"input":{"containers":[{"name":"gcptest-sha256-1"}]},"output":{"containers":[{"limits":{"ephemeral-storage":"1Gi"},"requests":{"cpu":"500m","ephemeral-storage":"1Gi","memory":"2Gi"},"name":"gcptest-sha256-1"}]},"computeClassAtAdmission":"Default","modified":true}'
     autopilot.gke.io/warden-version: 35.26.4-gke.2
-    deployment.kubernetes.io/revision: '2'
-  creationTimestamp: '2026-06-10T07:06:42Z'
-  generation: 4
+    deployment.kubernetes.io/revision: '1'
+  creationTimestamp: '2026-06-10T10:15:35Z'
+  generation: 1
   labels:
     app: deployment-1
     # app.kubernetes.io/managed-by: cloud-console
   name: deployment-1
   namespace: default
-  resourceVersion: '1781078121891007012'
-  uid: 912a98a9-fe4d-4870-97e7-2a50239d8216
+  resourceVersion: '1781086613969711012'
+  uid: 87057731-9351-4e87-a01f-6007868af736
 spec:
   progressDeadlineSeconds: 600
-  replicas: 1
+  replicas: 3
   revisionHistoryLimit: 10
   selector:
     matchLabels:
@@ -34,7 +34,7 @@ spec:
         # app.kubernetes.io/managed-by: cloud-console
     spec:
       containers:
-      - image: gcr.io/satyanewproject-498206/github.com/satyanathsatyanath/gcptest@sha256:a041dcdcdb172e6ef76f1fcd9fecef709b6372ba4fb0dd1105f3b7026eb689ca
+      - image: gcr.io/satyanewproject-498206/github.com/satyanathsatyanath/gcptest@sha256:86a7f1c1799270c29b3429af003e7255f2b5331bd96befd1b95948559fe5decb
         imagePullPolicy: IfNotPresent
         name: gcptest-sha256-1
         resources:
@@ -63,22 +63,22 @@ spec:
         operator: Equal
         value: amd64
 status:
-  availableReplicas: 1
+  availableReplicas: 3
   conditions:
-  - lastTransitionTime: '2026-06-10T07:06:42Z'
-    lastUpdateTime: '2026-06-10T07:50:43Z'
-    message: ReplicaSet "deployment-1-54bb8cbf5" has successfully progressed.
-    reason: NewReplicaSetAvailable
-    status: 'True'
-    type: Progressing
-  - lastTransitionTime: '2026-06-10T07:54:56Z'
-    lastUpdateTime: '2026-06-10T07:54:56Z'
+  - lastTransitionTime: '2026-06-10T10:16:53Z'
+    lastUpdateTime: '2026-06-10T10:16:53Z'
     message: Deployment has minimum availability.
     reason: MinimumReplicasAvailable
     status: 'True'
     type: Available
-  observedGeneration: 4
-  readyReplicas: 1
-  replicas: 1
+  - lastTransitionTime: '2026-06-10T10:15:35Z'
+    lastUpdateTime: '2026-06-10T10:16:53Z'
+    message: ReplicaSet "deployment-1-5f99db5696" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: 'True'
+    type: Progressing
+  observedGeneration: 1
+  readyReplicas: 3
+  replicas: 3
   terminatingReplicas: 0
-  updatedReplicas: 1
+  updatedReplicas: 3
