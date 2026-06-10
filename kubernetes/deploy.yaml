@@ -9,7 +9,7 @@ metadata:
   generation: 4
   labels:
     app: deployment-1
-    app.kubernetes.io/managed-by: cloud-console
+    # app.kubernetes.io/managed-by: cloud-console
   name: deployment-1
   namespace: default
   resourceVersion: '1781078121891007012'
@@ -31,7 +31,7 @@ spec:
     metadata:
       labels:
         app: deployment-1
-        app.kubernetes.io/managed-by: cloud-console
+        # app.kubernetes.io/managed-by: cloud-console
     spec:
       containers:
       - image: gcr.io/satyanewproject-498206/github.com/satyanathsatyanath/gcptest@sha256:a041dcdcdb172e6ef76f1fcd9fecef709b6372ba4fb0dd1105f3b7026eb689ca
