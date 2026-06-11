@@ -9,8 +9,7 @@ steps:
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
     id: 'Deploy to Cloud Run'
     entrypoint: 'bash'
-    # args:
-    args: ['-c', 'gcloud config set app/cloud_build_timeout 1600 && gcloud app deploy']
+    args:
       # - '-c'
       # - |
         # echo "Enabling required APIs..."
@@ -27,7 +26,9 @@ steps:
         #   --allow-unauthenticated \
         #   --port 8000 \
         #   --project satyanewproject-498206
-
+        gcloud config set app/cloud_build_timeout 1600 
+        gcloud app deploy
+        
         echo "Deployment completed successfully!"
 
 images:
