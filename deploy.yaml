@@ -5,31 +5,32 @@ steps:
 #push the image to artifact registry
   - name: gcr.io/cloud-builders/docker
     args: ['push', 'asia-south1-docker.pkg.dev/satyanewproject-498206/python-aap-image/hello-app:v1']
-
-  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
-    id: 'Deploy to Cloud Run'
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
-    args:
-      # - '-c'
-      # - |
-        # echo "Enabling required APIs..."
+    args: ['-c', 'gcloud config set app/cloud_build_timeout 1600 && gcloud app deploy']
+    timeout: '1600s'
+  # - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+  #   id: 'Deploy to Cloud Run'
+  #   entrypoint: 'bash'
+  #   args:
+  #     # - '-c'
+  #     # - |
+  #       # echo "Enabling required APIs..."
 
-        # gcloud services enable run.googleapis.com \
-        #   --project=satyanewproject-498206
+  #       # gcloud services enable run.googleapis.com \
+  #       #   --project=satyanewproject-498206
 
-        # echo "Deploying application to Cloud Run..."
+  #       # echo "Deploying application to Cloud Run..."
 
-        # gcloud run deploy hello-app \
-        #   --image asia-south1-docker.pkg.dev/satyanewproject-498206/python-aap-image/hello-app:v1 \
-        #   --region asia-south1 \
-        #   --platform managed \
-        #   --allow-unauthenticated \
-        #   --port 8000 \
-        #   --project satyanewproject-498206
-        gcloud config set app/cloud_build_timeout 1600 
-        gcloud app deploy
-        
-        echo "Deployment completed successfully!"
+  #       # gcloud run deploy hello-app \
+  #       #   --image asia-south1-docker.pkg.dev/satyanewproject-498206/python-aap-image/hello-app:v1 \
+  #       #   --region asia-south1 \
+  #       #   --platform managed \
+  #       #   --allow-unauthenticated \
+  #       #   --port 8000 \
+  #       #   --project satyanewproject-498206
+   
+  #       echo "Deployment completed successfully!"
 
 images:
  - 'asia-south1-docker.pkg.dev/satyanewproject-498206/python-aap-image/hello-app:v1'
