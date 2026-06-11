@@ -9,23 +9,24 @@ steps:
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
     id: 'Deploy to Cloud Run'
     entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
+    # args:
+    args: ['-c', 'gcloud config set app/cloud_build_timeout 1600 && gcloud app deploy']
+      # - '-c'
+      # - |
         # echo "Enabling required APIs..."
 
         # gcloud services enable run.googleapis.com \
         #   --project=satyanewproject-498206
 
-        echo "Deploying application to Cloud Run..."
+        # echo "Deploying application to Cloud Run..."
 
-        gcloud run deploy hello-app \
-          --image asia-south1-docker.pkg.dev/satyanewproject-498206/python-aap-image/hello-app:v1 \
-          --region asia-south1 \
-          --platform managed \
-          --allow-unauthenticated \
-          --port 8000 \
-          --project satyanewproject-498206
+        # gcloud run deploy hello-app \
+        #   --image asia-south1-docker.pkg.dev/satyanewproject-498206/python-aap-image/hello-app:v1 \
+        #   --region asia-south1 \
+        #   --platform managed \
+        #   --allow-unauthenticated \
+        #   --port 8000 \
+        #   --project satyanewproject-498206
 
         echo "Deployment completed successfully!"
 
