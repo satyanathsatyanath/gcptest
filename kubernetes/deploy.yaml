@@ -1,22 +1,21 @@
-apiVersion: apps/v1
-kind: Deployment
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+    - build
+    - '-t'
+    - 'gcr.io/$PROJECT_ID/gcptest:latest'
+    - '.'
 
-metadata:
-  name: deployment-1
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+    - push
+    - 'gcr.io/$PROJECT_ID/gcptest:latest'
 
-spec:
-  replicas: 1
-
-  selector:
-    matchLabels:
-      app: deployment-1
-  template:
-    metadata:
-      labels:
-        app: deployment-1
-    spec:
-      containers:
-      - name: gcptest
-        image: gcr.io/satyanewproject-498206/github.com/satyanathsatyanath/gcptest:latest
-        ports:
-        - containerPort: 8080
+- name: 'gcr.io/cloud-builders/kubectl'
+  env:
+    - CLOUDSDK_COMPUTE_ZONE=us-central1-a
+    - CLOUDSDK_CONTAINER_CLUSTER=cicd-cluster
+  args:
+    - apply
+    - -f
+    - kubernetes/deploy.yaml
