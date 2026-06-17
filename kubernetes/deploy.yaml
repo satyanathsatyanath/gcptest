@@ -10,12 +10,10 @@ spec:
   selector:
     matchLabels:
       app: deployment-1
-
   template:
     metadata:
       labels:
         app: deployment-1
-
     spec:
       containers:
       - name: gcptest
