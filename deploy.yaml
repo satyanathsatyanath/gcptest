@@ -3,13 +3,20 @@ steps:
   args:
     - build
     - '-t'
-    - 'gcr.io/satyanewproject-498206/github.com/satyanathsatyanath/gcptest:latest'
+    - 'gcr.io/$PROJECT_ID/github.com/satyanathsatyanath/gcptest:$SHORT_SHA'
     - '.'
 
 - name: 'gcr.io/cloud-builders/docker'
   args:
     - push
-    - 'gcr.io/satyanewproject-498206/github.com/satyanathsatyanath/gcptest:latest'
+    - 'gcr.io/$PROJECT_ID/github.com/satyanathsatyanath/gcptest:$SHORT_SHA'
+
+- name: 'ubuntu'
+  entrypoint: bash
+  args:
+    - '-c'
+    - |
+      sed -i "s|IMAGE_TAG|$SHORT_SHA|g" kubernetes/deploy.yaml
 
 - name: 'gcr.io/cloud-builders/kubectl'
   env:
@@ -19,6 +26,6 @@ steps:
     - apply
     - -f
     - kubernetes/deploy.yaml
-    
+
 options:
-  logging: CLOUD_LOGGING_ONLY    
+  logging: CLOUD_LOGGING_ONLY
