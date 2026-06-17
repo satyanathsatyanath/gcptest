@@ -1,36 +1,21 @@
 steps:
-  - name: gcr.io/cloud-builders/docker
-    args: ['build', '-t', 'gcr.io/satyanewproject-498206/github.com/satyanathsatyanath/gcptest:latest', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+    - build
+    - '-t'
+    - 'gcr.io/$PROJECT_ID/gcptest:latest'
+    - '.'
 
-#push the image to artifact registry
-  - name: gcr.io/cloud-builders/docker
-    args: ['push', 'gcr.io/satyanewproject-498206/github.com/satyanathsatyanath/gcptest:latest']
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+    - push
+    - 'gcr.io/$PROJECT_ID/gcptest:latest'
 
-  # - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
-  #   id: 'Deploy to Cloud Run'
-  #   entrypoint: 'bash'
-  #   args:
-  #     - '-c'
-  #     - |
-  #       # echo "Enabling required APIs..."
-
-  #       # gcloud services enable run.googleapis.com \
-  #       #   --project=satyanewproject-498206
-
-  #       echo "Deploying application to Cloud Run..."
-
-  #       gcloud run deploy hello-app \
-  #         --image asia-south1-docker.pkg.dev/satyanewproject-498206/python-aap-image/hello-app:v1 \
-  #         --region asia-south1 \
-  #         --platform managed \
-  #         --allow-unauthenticated \
-  #         --port 8000 \
-  #         --project satyanewproject-498206
-
-  #       echo "Deployment completed successfully!"
-
-images:
- - 'gcr.io/satyanewproject-498206/github.com/satyanathsatyanath/gcptest:latest'
-
-options:
-  logging: CLOUD_LOGGING_ONLY
+- name: 'gcr.io/cloud-builders/kubectl'
+  env:
+    - CLOUDSDK_COMPUTE_ZONE=us-central1-a
+    - CLOUDSDK_CONTAINER_CLUSTER=cicd-cluster
+  args:
+    - apply
+    - -f
+    - kubernetes/deploy.yaml
